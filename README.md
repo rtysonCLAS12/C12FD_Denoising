@@ -51,7 +51,7 @@ The Data.py file contains two functions, one to load the data from the saved .cs
 
 ## To Deploy
 
-The repository includes a toy maven project that allows to load the trained networks using the Deep Java Libray and applies them to a toy input. The pom.xml file contains the required set-up (assumes jdk/23.0.1) and the src/main/java/org/example/Main.java class contains a class capable of loading and applying the model. The class contains two main parts, first a translator that allows to convert a 2D array of floats into an input suitable for the network and convert the output of the network into a 2D array of floats. Second, the a Criteria class defines the path to the model and the engine (in this case pytorch).
+The repository includes a toy maven project that allows to load the trained networks using the Deep Java Libray and applies them to a toy input. The pom.xml file contains the required set-up (assumes jdk/17) and the src/main/java/org/example/Main.java class contains a class capable of loading and applying the model. The class contains two main parts, first a translator that allows to convert a 2D array of floats into an input suitable for the network and convert the output of the network into a 2D array of floats. Second, the a Criteria class defines the path to the model and the engine (in this case pytorch).
 
 
 
