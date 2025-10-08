@@ -68,15 +68,15 @@ def run_experiment(params, train_loader, val_loader, nEpoch=20, save_name="_test
 # Parameter grid to sweep
 param_grid = [
     
-    {"nBlocks": 1, "nFilters": 48, "kernel_size":(4,6)},
+    # {"nBlocks": 1, "nFilters": 48, "kernel_size":(4,6)},
 
-    {"nBlocks": 1, "nFilters": 24, "kernel_size":(4,6)},
-    {"nBlocks": 1, "nFilters": 12, "kernel_size":(4,6)},
-    {"nBlocks": 1, "nFilters": 96, "kernel_size":(4,6)},
+    # {"nBlocks": 1, "nFilters": 24, "kernel_size":(4,6)},
+    # {"nBlocks": 1, "nFilters": 12, "kernel_size":(4,6)},
+    # {"nBlocks": 1, "nFilters": 96, "kernel_size":(4,6)},
 
-    {"nBlocks": 4, "nFilters": 48, "kernel_size":(4,6)},
-    {"nBlocks": 2, "nFilters": 48, "kernel_size":(4,6)},
-    {"nBlocks": 0, "nFilters": 48, "kernel_size":(4,6)},
+    # {"nBlocks": 4, "nFilters": 48, "kernel_size":(4,6)},
+    # {"nBlocks": 2, "nFilters": 48, "kernel_size":(4,6)},
+    # {"nBlocks": 0, "nFilters": 48, "kernel_size":(4,6)},
 
     {"nBlocks": 1, "nFilters": 48, "kernel_size":(8,6)},
     {"nBlocks": 1, "nFilters": 48, "kernel_size":(2,6)},
@@ -100,13 +100,14 @@ nEpoch = 20
 filename = f"run5197_sector{sector}.csv"
 plotter = Plotter(print_dir="plots/", end_name=end_name,sector=sector)
 
-save_names=['_sector'+str(sector)+'_default'+end_name,
-            '_sector'+str(sector)+'_nFilters24'+end_name,
-            '_sector'+str(sector)+'_nFilters12'+end_name,
-            '_sector'+str(sector)+'_nFilters96'+end_name,
-            '_sector'+str(sector)+'_nBlocks4'+end_name,
-            '_sector'+str(sector)+'_nBlocks2'+end_name,
-            '_sector'+str(sector)+'_nBlocks0'+end_name,
+save_names=[
+            # '_sector'+str(sector)+'_default'+end_name,
+            # '_sector'+str(sector)+'_nFilters24'+end_name,
+            # '_sector'+str(sector)+'_nFilters12'+end_name,
+            # '_sector'+str(sector)+'_nFilters96'+end_name,
+            # '_sector'+str(sector)+'_nBlocks4'+end_name,
+            # '_sector'+str(sector)+'_nBlocks2'+end_name,
+            # '_sector'+str(sector)+'_nBlocks0'+end_name,
             '_sector'+str(sector)+'_kernelsize86'+end_name,
             '_sector'+str(sector)+'_kernelsize26'+end_name,
             '_sector'+str(sector)+'_kernelsize412'+end_name,
@@ -151,11 +152,11 @@ for p in param_grid:
     # plot each metric vs param (others at default)
     # Signal Efficiency and Background Rejection plotted together
 
-    plotter.plot_metric_vs_param(all_results, "nBlocks", 2, "Signal Efficiency",default_params)
-    plotter.plot_metric_vs_param(all_results, "nBlocks", 1, "Prediction Rate (kHz)",default_params)
+    # plotter.plot_metric_vs_param(all_results, "nBlocks", 2, "Signal Efficiency",default_params)
+    # plotter.plot_metric_vs_param(all_results, "nBlocks", 1, "Prediction Rate (kHz)",default_params)
 
-    plotter.plot_metric_vs_param(all_results, "nFilters", 2, "Signal Efficiency",default_params)
-    plotter.plot_metric_vs_param(all_results, "nFilters", 1, "Prediction Rate (kHz)",default_params)
+    # plotter.plot_metric_vs_param(all_results, "nFilters", 2, "Signal Efficiency",default_params)
+    # plotter.plot_metric_vs_param(all_results, "nFilters", 1, "Prediction Rate (kHz)",default_params)
 
     plotter.plot_metric_vs_param(all_results, "kernel_size", 2, "Signal Efficiency",default_params)
     plotter.plot_metric_vs_param(all_results, "kernel_size", 1, "Prediction Rate (kHz)",default_params)

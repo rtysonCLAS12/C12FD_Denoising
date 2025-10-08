@@ -7,9 +7,20 @@ All required libraries are detailed in env_requirements.txt. To install using ve
 
       python3 -m venv /path/to/env/location/newenvname
       source /path/to/env/location/newenvname/bin/activate.csh
-      pip install -r env_requirements.txt
+      pip install torch torchvision 
+      pip install lightning
+      pip install matplotlib
 
 Remember to always activate your environment before running code with source /path/to/env/location/newenvname/bin/activate.csh .
+
+A script is provided to launch an interactive gpu session on ifarm. This is run with:
+
+      source gpu_interactive
+      module use /cvmfs/oasis.opensciencegrid.org/jlab/scicomp/sw/el9/modulefiles
+      module load cuda/12.4.1
+
+Note that in that case, we need to create a GPU friendly PyTorch environment. We can replace the earlier line with:
+      pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
 
 ## To Produce Training Data
 
