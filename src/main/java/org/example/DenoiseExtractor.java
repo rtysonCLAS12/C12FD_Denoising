@@ -1,9 +1,13 @@
-import j4np.hipo5.data.Bank;
-import j4np.hipo5.data.Event;
-import j4np.hipo5.io.HipoReader;
+package org.example;
+
+import org.jlab.jnp.hipo4.data.Bank;
+import org.jlab.jnp.hipo4.data.Event;
+import org.jlab.jnp.hipo4.io.HipoReader;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+
+//mvn exec:java -Dexec.mainClass="org.example.DenoiseExtractor"
 
 public class DenoiseExtractor {
 
@@ -45,7 +49,8 @@ public class DenoiseExtractor {
                     if (evCountSector >= maxEvents) break;
 
                     System.out.printf("Sector %d: processing file %s%n", sector, f.getName());
-                    HipoReader reader = new HipoReader(f.getAbsolutePath());
+                    HipoReader reader = new HipoReader();
+                    reader.open(f.getAbsolutePath());
                     Event event = new Event();
 
                     Bank dcTDC = reader.getBank("DC::tdc");

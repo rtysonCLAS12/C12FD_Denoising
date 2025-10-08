@@ -20,11 +20,19 @@ A script is provided to launch an interactive gpu session on ifarm. This is run 
       module load cuda/12.4.1
 
 Note that in that case, we need to create a GPU friendly PyTorch environment. We can replace the earlier line with:
-      pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu124
+
+      pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124
 
 ## To Produce Training Data
 
-I am using j4shell code to run the DenoiseExtractor.java code. This extracts all hits from the DC::tdc bank as our noisy input, and all hits from the TimeBasedTrkg::TBHits bank as our denoised output. The training data will be written in .csv files. The two sets of hits are written in 2D arrays filled with 1 for a hit and 0 otherwise, where the x axis is the number of wires in each drift chamber layers (112) and the y axis is the number of layers in the drift chamber (6 layer x 6 superlayers). The .csv file is written such that the noisy and denoised arrays are written one after the other (eg each event has 2 arrays consecutive arrays with noisy and denoised arrays). Arrays are written per sector, and only if TimeBasedTrkg::TBHits contains hits in that sector.
+I am using java code in /src/main/java/org/example/DenoiseExtractor.java code. This extracts all hits from the DC::tdc bank as our noisy input, and all hits from the TimeBasedTrkg::TBHits bank as our denoised output. The training data will be written in .csv files. The two sets of hits are written in 2D arrays filled with 1 for a hit and 0 otherwise, where the x axis is the number of wires in each drift chamber layers (112) and the y axis is the number of layers in the drift chamber (6 layer x 6 superlayers). The .csv file is written such that the noisy and denoised arrays are written one after the other (eg each event has 2 arrays consecutive arrays with noisy and denoised arrays). Arrays are written per sector, and only if TimeBasedTrkg::TBHits contains hits in that sector.
+
+To run the code compile and run with with maven:
+
+      module load jdk/17.0.2
+      mvn install -U
+      mvn exec:java -Dexec.mainClass="org.example.DenoiseExtractor"
+
 
 ## To Train
 
