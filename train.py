@@ -149,6 +149,7 @@ def main():
         plotter.plotTrainLoss(loss_tracker)
 
         # Save model
+        model.eval()
         model.to("cpu")
         torchscript_model = torch.jit.script(model)
         torchscript_model.save(f"{outDir}/cnn_autoenc_sector{sector}_{end_name}.pt")
