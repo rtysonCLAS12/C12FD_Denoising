@@ -14,6 +14,17 @@
         <djl.version>0.34.0</djl.version>
     </properties>
 
+    <repositories>
+      <repository>
+        <id>j4np-maven</id>
+        <url>https://clasweb.jlab.org/jhep/maven</url>
+      </repository>
+      <repository>
+        <id>clas12maven</id>
+        <url>https://clasweb.jlab.org/clas12maven</url>
+      </repository>
+    </repositories>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -27,7 +38,13 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- Core DJL API -->
+        <dependency>
+          <groupId>org.jlab.jnp</groupId>
+          <artifactId>jnp-hipo4</artifactId>
+          <version>4.1-SNAPSHOT</version>
+        </dependency>
+
+        <!-- Core DJL API - needed at compile time -->
         <dependency>
             <groupId>ai.djl</groupId>
             <artifactId>api</artifactId>
@@ -53,6 +70,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.11.0</version>
+                <configuration>
+                    <source>17</source>
+                    <target>17</target>
+                </configuration>
             </plugin>
 
             <plugin>

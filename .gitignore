@@ -3,3 +3,6 @@ run5197_sector*.csv
 target
 .idea
 outputs
+run*.csv
+target
+

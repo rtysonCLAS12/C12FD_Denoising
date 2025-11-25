@@ -7,13 +7,32 @@ All required libraries are detailed in env_requirements.txt. To install using ve
 
       python3 -m venv /path/to/env/location/newenvname
       source /path/to/env/location/newenvname/bin/activate.csh
-      pip install -r env_requirements.txt
+      pip install torch torchvision 
+      pip install lightning
+      pip install matplotlib
 
 Remember to always activate your environment before running code with source /path/to/env/location/newenvname/bin/activate.csh .
 
+A script is provided to launch an interactive gpu session on ifarm. This is run with:
+
+      source gpu_interactive
+      module use /cvmfs/oasis.opensciencegrid.org/jlab/scicomp/sw/el9/modulefiles
+      module load cuda/12.4.1
+
+Note that in that case, we need to create a GPU friendly PyTorch environment. We can replace the earlier line with:
+
+      pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124
+
 ## To Produce Training Data
 
-I am using j4shell code to run the DenoiseExtractor.java code. This extracts all hits from the DC::tdc bank as our noisy input, and all hits from the TimeBasedTrkg::TBHits bank as our denoised output. The training data will be written in .csv files. The two sets of hits are written in 2D arrays filled with 1 for a hit and 0 otherwise, where the x axis is the number of wires in each drift chamber layers (112) and the y axis is the number of layers in the drift chamber (6 layer x 6 superlayers). The .csv file is written such that the noisy and denoised arrays are written one after the other (eg each event has 2 arrays consecutive arrays with noisy and denoised arrays). Arrays are written per sector, and only if TimeBasedTrkg::TBHits contains hits in that sector.
+I am using java code in /src/main/java/org/example/DenoiseExtractor.java code. This extracts all hits from the DC::tdc bank as our noisy input, and all hits from the TimeBasedTrkg::TBHits bank as our denoised output. The training data will be written in .csv files. The two sets of hits are written in 2D arrays filled with 1 for a hit and 0 otherwise, where the x axis is the number of wires in each drift chamber layers (112) and the y axis is the number of layers in the drift chamber (6 layer x 6 superlayers). The .csv file is written such that the noisy and denoised arrays are written one after the other (eg each event has 2 arrays consecutive arrays with noisy and denoised arrays). Arrays are written per sector, and only if TimeBasedTrkg::TBHits contains hits in that sector.
+
+To run the code compile and run with with maven:
+
+      module load jdk/17.0.2
+      mvn install -U
+      mvn exec:java -Dexec.mainClass="org.example.DenoiseExtractor"
+
 
 ## To Train
 
@@ -32,7 +51,7 @@ The Data.py file contains two functions, one to load the data from the saved .cs
 
 ## To Deploy
 
-The repository includes a toy maven project that allows to load the trained networks using the Deep Java Libray and applies them to a toy input. The pom.xml file contains the required set-up (assumes jdk/23.0.1) and the src/main/java/org/example/Main.java class contains a class capable of loading and applying the model. The class contains two main parts, first a translator that allows to convert a 2D array of floats into an input suitable for the network and convert the output of the network into a 2D array of floats. Second, the a Criteria class defines the path to the model and the engine (in this case pytorch).
+The repository includes a toy maven project that allows to load the trained networks using the Deep Java Libray and applies them to a toy input. The pom.xml file contains the required set-up (assumes jdk/17) and the src/main/java/org/example/Main.java class contains a class capable of loading and applying the model. The class contains two main parts, first a translator that allows to convert a 2D array of floats into an input suitable for the network and convert the output of the network into a 2D array of floats. Second, the a Criteria class defines the path to the model and the engine (in this case pytorch).
 
 
 
