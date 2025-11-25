@@ -25,7 +25,7 @@ class HitsDataset(Dataset):
 
 class LitConvAutoencoder(pl.LightningModule):
     """PyTorch Lightning convolutional autoencoder"""
-    def __init__(self, nBlocks=2,nFilters=48,kernel_size=(4, 6)):
+    def __init__(self, nBlocks=2,nFilters=48,kernel_size=(4, 6),lr=1e-3):
         super().__init__()
         self.save_hyperparameters()
         
@@ -34,6 +34,7 @@ class LitConvAutoencoder(pl.LightningModule):
         self.nBlocks = nBlocks
         self.nFilters = nFilters
         self.kernel_size=kernel_size
+        self.lr = lr
 
         #fix poolsize, as we're pooling/upsampling
         #with 36 layers, quickly becomes messy for larger 
@@ -133,7 +134,7 @@ class LitConvAutoencoder(pl.LightningModule):
         return loss
 
     def configure_optimizers(self):
-        return torch.optim.Adam(self.parameters(), lr=1e-3)
+        return torch.optim.Adam(self.parameters(), lr=self.lr)
 
 class LossTracker(Callback):
     def __init__(self):

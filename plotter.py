@@ -67,7 +67,7 @@ class Plotter:
         if noth==True:
             predstr=predstr+'_noThreshold'
 
-        outname = f"{self.print_dir}sector{self.sector}_event{event_idx}{self.end_name}{predstr}.png"
+        outname = f"{self.print_dir}/sector{self.sector}_event{event_idx}_{self.end_name}{predstr}.png"
         plt.savefig(outname)
         plt.close(fig)
 
@@ -85,7 +85,7 @@ class Plotter:
         plt.yscale('log')
         plt.legend()
         plt.tight_layout()
-        outname = f"{self.print_dir}loss_sector{self.sector}{self.end_name}.png"
+        outname = f"{self.print_dir}/loss_sector{self.sector}_{self.end_name}.png"
         plt.savefig(outname)
         plt.close()
 
@@ -102,7 +102,7 @@ class Plotter:
         plt.ylim(0.7,1.1)
         plt.legend()
         plt.grid(True)
-        outname = f"{self.print_dir}mets_sector{self.sector}{self.end_name}.png"
+        outname = f"{self.print_dir}/mets_sector{self.sector}_{self.end_name}.png"
         plt.savefig(outname)
         plt.close()
 
@@ -190,7 +190,7 @@ class Plotter:
         plt.title(f"{yname} vs {param_name}")
         plt.grid(True)
 
-        outname = f"{self.print_dir}{param_name}_{yname.replace(' ', '_')}_sector{self.sector}{self.end_name}.png"
+        outname = f"{self.print_dir}/{param_name}_{yname.replace(' ', '_')}_sector{self.sector}_{self.end_name}.png"
         plt.savefig(outname)
         plt.close()
 
@@ -211,6 +211,6 @@ class Plotter:
           plt.title(f"{yname} vs {param_name}")
           plt.grid(True)
 
-          outname = f"{self.print_dir}{param_name}y_{yname.replace(' ', '_')}_sector{self.sector}{self.end_name}.png"
+          outname = f"{self.print_dir}/{param_name}y_{yname.replace(' ', '_')}_sector{self.sector}_{self.end_name}.png"
           plt.savefig(outname)
           plt.close()
