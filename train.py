@@ -188,6 +188,7 @@ def main():
     )
 
     # Plot efficiency vs threshold
+    plotter.save_efficiency_results(thresholds, signal_eff, background_rej)
     plotter.plot_efficiency_background(thresholds, signal_eff, background_rej)
 
     # Apply chosen threshold to predictions
