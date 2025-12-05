@@ -89,6 +89,16 @@ class Plotter:
         plt.savefig(outname)
         plt.close()
 
+    def save_efficiency_results(self, thresholds, signal_eff, background_rej):
+        """
+        Save thresholds, signal efficiency, and background rejection
+        to a 3-column text file.
+        """
+        data = np.vstack([thresholds, signal_eff, background_rej]).T
+        header = "threshold  signal_efficiency  background_rejection"
+        filename = f"{self.print_dir}/eff_rej_scan.txt"
+        np.savetxt(filename, data, fmt="%.6f", header=header)
+
     def plot_efficiency_background(self, thresholds, signal_eff, background_rej):
         plt.figure(figsize=(20,20))
         plt.axhline(0.95, color="dimgrey", linestyle="--")
