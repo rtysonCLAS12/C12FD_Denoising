@@ -25,8 +25,8 @@ def parse_args():
     parser = argparse.ArgumentParser(description="Transformer Masked Autoencoder Training")
     parser.add_argument("--device", type=str, choices=["cpu", "gpu", "auto"], default="auto",
                         help="Choose device: cpu, gpu, or auto (default: auto)")
-    parser.add_argument("--sector", type=int, default=1,
-                        help="sector of drift chambers")
+    parser.add_argument("--sector", type=int, default=0,
+                        help="sector of drift chambers; default: all sectors together")
     parser.add_argument("input", type=str,
                         help="Input CSV file (required)")
     parser.add_argument("--max_epochs", type=int, default=50,
