@@ -3,6 +3,7 @@ from trainer import *
 from Data  import *
 
 import os
+from pathlib import Path
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -154,7 +155,19 @@ def main():
         torchscript_model = torch.jit.script(model)
         torchscript_model.save(f"{outDir}/cnn_autoenc_sector{sector}_{end_name}.pt")
 
-    model_file = f"{outDir}/cnn_autoenc_sector{sector}_{end_name}.pt" if doTraining else "nets/cnn_autoenc_allSectors_2b_48f_4x6.pt"
+    BASE_DIR = Path(__file__).resolve().parent
+    model_file = (
+        Path(outDir) / f"cnn_autoenc_sector{sector}_{end_name}.pt"
+        if doTraining
+        else BASE_DIR / "nets" / "cnn_autoenc_allSectors_2b_48f_4x6.pt"
+    )
+
+    model_file = model_file.resolve()
+    print("Loading model from:", model_file)
+
+    if not model_file.exists():
+        raise FileNotFoundError(f"Model file not found: {model_file}")
+
     model = torch.jit.load(model_file)
     model.eval()
 
